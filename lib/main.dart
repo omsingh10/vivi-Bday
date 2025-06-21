@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 // import 'package:vivi/effects.dart';
 import 'package:vivi/birth.dart';
-import 'package:vivi/splash.dart'; // create this
+import 'package:vivi/splash.dart';
+import 'package:audioplayers/audioplayers.dart'; // create this
 
 void main() {
   runApp(const Plady());
@@ -15,7 +16,7 @@ class Plady extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Happy Popo',
-      home: love(),//splash screen
+      home: love(), //splash screen
     );
   }
 }
@@ -28,31 +29,68 @@ class Dash extends StatefulWidget {
 }
 
 class _DashState extends State<Dash> {
-//wish card
-void showBalloonOverlay(BuildContext context) {
-  final overlay = Overlay.maybeOf(context);
-  if (overlay == null) return;
+  //music
 
-  final balloons = OverlayEntry(
-    builder: (_) => const Positioned.fill(
-      child: IgnorePointer(
-        child: AnimatedBalloons(),
+  late final AudioPlayer _backgroundPlayer;
+  late final AudioPlayer _effectPlayer;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _backgroundPlayer = AudioPlayer();
+    _effectPlayer = AudioPlayer();
+
+    _playBackgroundAudio();
+  }
+
+  void _playBackgroundAudio() async {
+    await _backgroundPlayer.play(
+      AssetSource('fav2.mp3'),
+      volume: 0.5,
+    ); // loop optional
+    _backgroundPlayer.setReleaseMode(
+      ReleaseMode.loop,
+    ); // optional: loop forever
+  }
+
+  void _playCakeSound() async {
+    await _effectPlayer.stop(); // stop if already playing
+    await _effectPlayer.play(AssetSource('fav1.mp3'));
+  }
+
+  void _stopAllAudio() async {
+    await _backgroundPlayer.stop();
+    await _effectPlayer.stop();
+  }
+
+  @override
+  void dispose() {
+    _backgroundPlayer.dispose();
+    _effectPlayer.dispose();
+    super.dispose();
+  }
+
+  // card ke liye
+
+  void showBalloonOverlay(BuildContext context) {
+    final overlay = Overlay.maybeOf(context);
+    if (overlay == null) return;
+
+    final balloons = OverlayEntry(
+      builder: (_) => const Positioned.fill(
+        child: IgnorePointer(child: AnimatedBalloons()),
       ),
-    ),
-  );
+    );
 
-  // Wait until the current frame finishes building
-  WidgetsBinding.instance.addPostFrameCallback((_) {
-    overlay.insert(balloons);
-  });
+    // Wait until the current frame finishes building
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      overlay.insert(balloons);
+    });
 
-  // Remove after 4 seconds
-  Future.delayed(const Duration(seconds: 4), () => balloons.remove());
-}
-
-
-
-
+    // Remove after 4 seconds
+    Future.delayed(const Duration(seconds: 4), () => balloons.remove());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +103,6 @@ void showBalloonOverlay(BuildContext context) {
       ),
 
       body: SingleChildScrollView(
-
         child: Column(
           children: [
             const SizedBox(height: 10),
@@ -95,7 +132,7 @@ void showBalloonOverlay(BuildContext context) {
               'assets/Balloon-Border.png',
               width: double.infinity,
               height: 60,
-              
+
               fit: BoxFit.contain,
             ),
 
@@ -112,18 +149,17 @@ void showBalloonOverlay(BuildContext context) {
                 );
               },
               child: Container(
-                
                 height: 300,
                 width: 250,
-              
-               decoration: BoxDecoration(
-  image: DecorationImage(
-    image: AssetImage('assets/human.png'),
-    fit: BoxFit.cover,
-  ),
-  color: Colors.blue, // optional: if image has transparency
-  borderRadius: BorderRadius.circular(20),
-),
+
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/human.png'),
+                    fit: BoxFit.cover,
+                  ),
+                  color: Colors.blue, // optional: if image has transparency
+                  borderRadius: BorderRadius.circular(20),
+                ),
               ),
             ),
 
@@ -131,35 +167,33 @@ void showBalloonOverlay(BuildContext context) {
 
             // 🎂 Cake image (you can use .svg or .gif)
             GestureDetector(
-  onTap: () {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        showBalloonOverlay(context); // call the balloon animation
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-          title: const Text("🎉 Surprise!"),
-          content: const Text("Happy Birthday from Shiv! 💖"),
-          actions: [
-            TextButton(
-              child: const Text("2 bitcoin !"),
-              onPressed: () {
-                Navigator.of(context).pop();
+              onTap: () {
+                _playCakeSound();
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    showBalloonOverlay(context); // call the balloon animation
+                    return AlertDialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      title: const Text("🎉 Surprise!"),
+                      content: const Text("Happy Birthday from Shiv! 💖"),
+                      actions: [
+                        TextButton(
+                          child: const Text(" thank u shiv !"),
+                          onPressed: () {
+                            _stopAllAudio();
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
               },
+              child: Image.asset('assets/cake.gif', height: 120),
             ),
-          ],
-        );
-      },
-    );
-  },
-  child: Image.asset(
-    'assets/cake.gif',
-    height: 120,
-  ),
-),
-
 
             const SizedBox(height: 20),
           ],
@@ -189,9 +223,10 @@ class _AnimatedBalloonsState extends State<AnimatedBalloons>
       duration: const Duration(seconds: 4),
     )..forward();
 
-    _animation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
-    );
+    _animation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
   }
 
   @override

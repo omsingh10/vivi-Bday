@@ -9,16 +9,16 @@ class BirthdayScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Map<String, String>> giftData = [
-      {'image': 'assets/Face2.jpg', 'name': 'qtyy', 'audio': 'beauty.mp3'},
-      {'image': 'assets/img1.jpg', 'name': 'POPO', 'audio': 'music.mp3'},
-      {'image': 'assets/img2.jpg', 'name': 'chudail', 'audio': 'beauty.mp3'},
-      {'image': 'assets/img3.jpg', 'name': 'Tiamu', 'audio': 'music.mp3'},
+      {'image': 'assets/Face2.jpg', 'name': 'qtyy', 'audio': 'fav3.mp3'},
+      {'image': 'assets/img1.jpg', 'name': 'POPO', 'audio': 'fav1.mp3'},
+      {'image': 'assets/img2.jpg', 'name': 'beauty', 'audio': 'fav4.mp3'},
+      {'image': 'assets/img3.jpg', 'name': 'Tiamu', 'audio': 'fav2.mp3'},
       {
         'image': 'assets/img4.jpg',
         'name': 'Birthday Queen',
-        'audio': 'music.mp3',
+        'audio': 'vivi1.mp3',
       },
-      {'image': 'assets/img5.jpg', 'name': 'vivi', 'audio': 'music.mp3'},
+      {'image': 'assets/img5.jpg', 'name': 'vivi', 'audio': 'fav5.mp3'},
     ];
 
     return Scaffold(
@@ -106,7 +106,6 @@ class BirthdayScreen extends StatelessWidget {
                           'whatsapp://send?phone="918788493707"&text="hey you are amazing shiv"';
                       await launchUrl(Uri.parse(url));
                     }
-                    
                   },
 
                   child: const Text(
