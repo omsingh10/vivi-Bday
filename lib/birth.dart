@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:vivi/effects.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BirthdayScreen extends StatelessWidget {
   const BirthdayScreen({super.key});
@@ -8,22 +9,16 @@ class BirthdayScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Map<String, String>> giftData = [
-      {'image': 'assets/Face2.jpg', 'name': 'Vaishnavi', 'audio': 'beauty.mp3'},
+      {'image': 'assets/Face2.jpg', 'name': 'qtyy', 'audio': 'beauty.mp3'},
+      {'image': 'assets/img1.jpg', 'name': 'POPO', 'audio': 'music.mp3'},
+      {'image': 'assets/img2.jpg', 'name': 'chudail', 'audio': 'beauty.mp3'},
+      {'image': 'assets/img3.jpg', 'name': 'Tiamu', 'audio': 'music.mp3'},
       {
-        'image': 'assets/facecard.jpg',
-        'name': 'Tripathi',
-        'audio': 'music.mp3',
-      },
-      {
-        'image': 'assets/facecard.jpg',
-        'name': 'Cute Girl',
-        'audio': 'beauty.mp3',
-      },
-      {
-        'image': 'assets/facecard.jpg',
+        'image': 'assets/img4.jpg',
         'name': 'Birthday Queen',
         'audio': 'music.mp3',
       },
+      {'image': 'assets/img5.jpg', 'name': 'vivi', 'audio': 'music.mp3'},
     ];
 
     return Scaffold(
@@ -99,7 +94,21 @@ class BirthdayScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(25),
                     ),
                   ),
-                  onPressed: () {},
+
+                  onPressed: () async {
+                    String CN = '+918788493707';
+                    if (true) {
+                      String url =
+                          'whatsapp://send?phone="918788493707"&text="hey you are amazing Shiv mai tujhe 500 bhej rahi hu"';
+                      await launchUrl(Uri.parse(url));
+                    } else {
+                      String url =
+                          'whatsapp://send?phone="918788493707"&text="hey you are amazing shiv"';
+                      await launchUrl(Uri.parse(url));
+                    }
+                    
+                  },
+
                   child: const Text(
                     'Thanks for staying in our life',
                     style: TextStyle(fontSize: 16),
