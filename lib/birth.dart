@@ -15,7 +15,7 @@ class BirthdayScreen extends StatelessWidget {
       {'image': 'assets/img3.jpg', 'name': 'Tiamu', 'audio': 'fav2.mp3'},
       {
         'image': 'assets/img4.jpg',
-        'name': 'Birthday Queen',
+        'name': 'sanskari',
         'audio': 'vivi1.mp3',
       },
       {'image': 'assets/img5.jpg', 'name': 'vivi', 'audio': 'fav5.mp3'},
@@ -62,7 +62,7 @@ class BirthdayScreen extends StatelessWidget {
               const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'For POPO Tripathi',
+                  'Different type of vivi',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -99,7 +99,7 @@ class BirthdayScreen extends StatelessWidget {
                     String CN = '+918788493707';
                     if (true) {
                       String url =
-                          'whatsapp://send?phone="918788493707"&text="hey you are amazing Shiv mai tujhe 500 bhej rahi hu"';
+                          'whatsapp://send?phone="918788493707"&text="hey you are amazing OShiv mai tujhe 500 bhej rahi hu"';
                       await launchUrl(Uri.parse(url));
                     } else {
                       String url =

@@ -138,7 +138,6 @@ class _DashState extends State<Dash> {
 
             const SizedBox(height: 10),
 
-            // 💙 Tappable Blue Card
             GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -157,7 +156,7 @@ class _DashState extends State<Dash> {
                     image: AssetImage('assets/human.png'),
                     fit: BoxFit.cover,
                   ),
-                  color: Colors.blue, // optional: if image has transparency
+                  color: Colors.red, //
                   borderRadius: BorderRadius.circular(20),
                 ),
               ),
@@ -165,7 +164,6 @@ class _DashState extends State<Dash> {
 
             const SizedBox(height: 20),
 
-            // 🎂 Cake image (you can use .svg or .gif)
             GestureDetector(
               onTap: () {
                 _playCakeSound();
@@ -178,10 +176,10 @@ class _DashState extends State<Dash> {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       title: const Text("🎉 Surprise!"),
-                      content: const Text("Happy Birthday from Shiv! 💖"),
+                      content: const Text("Happy Birthday from OShiv! 💖"),
                       actions: [
                         TextButton(
-                          child: const Text(" thank u shiv !"),
+                          child: const Text(" thank u Oshiv !"),
                           onPressed: () {
                             _stopAllAudio();
                             Navigator.of(context).pop();

@@ -59,7 +59,7 @@ class _loveState extends State<love> with SingleTickerProviderStateMixin {
                 const Icon(Icons.favorite, color: Colors.white, size: 60),
                 const SizedBox(height: 20),
                 const Text(
-                  "Made with for Vaishnavi",
+                  "Made By Om(shiv) for Vaishnavi",
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,

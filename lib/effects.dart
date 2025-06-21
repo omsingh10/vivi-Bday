@@ -5,9 +5,7 @@ import 'dart:math';
 /// 🎇 Fireworks Overlay
 void showFireworksOverlay(BuildContext context) {
   final overlay = Overlay.of(context);
-  final entry = OverlayEntry(
-    builder: (_) => const FireworkOverlay(),
-  );
+  final entry = OverlayEntry(builder: (_) => const FireworkOverlay());
   overlay.insert(entry);
   Future.delayed(const Duration(seconds: 3), () => entry.remove());
 }
